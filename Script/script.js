@@ -60,10 +60,10 @@ function setup() {
                 let predator = new Predator(x, y);
                 predatorArr.push(predator);
             }
-            else if(matrix[y][x] == 4){
-                let water = new Water(x,y);
-                jurArr.push(water);
-            }
+            // else if(matrix[y][x] == 4){
+            //     let water = new Water(x,y);
+            //     jurArr.push(water);
+            // }
             else if(matrix[y][x] == 5){
                 let fire = new Fire(x,y);
                 krakArr.push(fire);
