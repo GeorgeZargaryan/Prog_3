@@ -6,7 +6,7 @@ let predatorArr = [];
 let jurArr = [];
 let krakArr = [];
 function setup() {
-  matrixGen(80, 1500, 100, 30, 40, m20);
+  matrixGen(80, 1500, 100, 30, 15, 20);
   createCanvas(matrix[0].length * side, matrix.length * side);
   background("grey");
 
@@ -65,10 +65,10 @@ function setup() {
         let predator = new Predator(x, y);
         predatorArr.push(predator);
       }
-      // else if(matrix[y][x] == 4){
-      //     let water = new Water(x,y);
-      //     jurArr.push(water);
-      // }
+      else if(matrix[y][x] == 4){
+          let water = new Water(x,y);
+          jurArr.push(water);
+      }
       else if (matrix[y][x] == 5) {
         let fire = new Fire(x, y);
         krakArr.push(fire);
