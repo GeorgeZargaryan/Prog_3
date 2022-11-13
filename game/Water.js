@@ -1,4 +1,6 @@
-class Water extends Creatures{
+import {Creatures} from './Creatures.js';
+
+export class Water extends Creatures{
     
     getNewDirections() {
         this.directions = [

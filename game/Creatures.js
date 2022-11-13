@@ -1,4 +1,5 @@
-class Creatures {
+
+export class Creatures {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -13,6 +14,7 @@ class Creatures {
           [this.x, this.y + 1],
           [this.x + 1, this.y + 1],
         ];
+        
       }
       chooseCell(char) {
         let arr = [];

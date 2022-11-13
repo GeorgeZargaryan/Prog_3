@@ -1,4 +1,5 @@
-class GrassEater extends Creatures{
+import {Creatures} from './Creatures.js';
+export class GrassEater extends Creatures{
   constructor(x, y) {
     super(x, y)
     this.energy = 30;

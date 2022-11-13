@@ -1,4 +1,5 @@
-class Grass extends Creatures{
+import {Creatures} from './Creatures.js';
+export class Grass extends Creatures{
 
   mul() {
     this.life++;

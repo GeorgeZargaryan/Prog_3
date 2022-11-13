@@ -1,5 +1,5 @@
-// const Creatures = require("./Creatures");
-class Fire extends Creatures{
+import {Creatures} from './Creatures.js';
+export class Fire extends Creatures{
   constructor(x, y) {
     super(x ,y);
     this.energy = 10;
@@ -95,5 +95,3 @@ class Fire extends Creatures{
     }
   }
 }
-
-// module.exports = Fire;
