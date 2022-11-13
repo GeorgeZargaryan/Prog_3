@@ -23,7 +23,7 @@ class Predator extends Creatures{
       matrix[y][x] = 3;
       let predator = new Predator(x, y);
       predatorArr.push(predator);
-      this.energy = 0;
+      this.energy -= 60 ;
     }
   }
   die() {

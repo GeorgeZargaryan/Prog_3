@@ -62,7 +62,7 @@ class GrassEater extends Creatures{
     }
   }
   move() {
-    this.energy--;
+    this.energy -= 2;
     let newCell = random(this.chooseCell(0).concat(this.chooseCell(4)));
     if (newCell) {
       let x = newCell[0];
