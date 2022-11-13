@@ -1,3 +1,5 @@
+// const Fire = require("../Classes/Fire");
+
 let matrix = [];
 let side = 10;
 let grassArr = [];
@@ -5,11 +7,13 @@ let eaterArr = [];
 let predatorArr = [];
 let jurArr = [];
 let krakArr = [];
+
 function setup() {
+  frameRate(30);
   matrixGen(80, 1500, 100, 30, 15, 20);
   createCanvas(matrix[0].length * side, matrix.length * side);
   background("grey");
-
+    
   noStroke();
 
   function matrixGen(
@@ -113,3 +117,22 @@ function draw() {
     krakArr[index].eat();
   }
 }
+
+/*
+const fs = require("fs");
+
+var obj = 
+{
+    "first_name": "Valera",
+    "last_name": "Hovsepyan",
+    "age": 15,
+    "is_tumo_student": false
+}
+
+function main(){
+    fs.writeFileSync("obj.json", JSON.stringify(obj))
+    fs.readFileSync("obj.json").toString();
+    console.log(JSON.stringify(obj));
+}
+main();
+*/

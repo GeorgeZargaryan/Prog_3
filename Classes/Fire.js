@@ -1,3 +1,4 @@
+// const Creatures = require("./Creatures");
 class Fire extends Creatures{
   constructor(x, y) {
     super(x ,y);
@@ -94,3 +95,5 @@ class Fire extends Creatures{
     }
   }
 }
+
+// module.exports = Fire;
