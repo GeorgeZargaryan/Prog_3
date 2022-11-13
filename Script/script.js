@@ -96,7 +96,7 @@ function draw() {
       } else if (matrix[y][x] == 5) {
         fill("orange");
       } else {
-        fill("grey");
+        fill("#9b7653");
       }
       rect(x * side, y * side, side, side);
     }

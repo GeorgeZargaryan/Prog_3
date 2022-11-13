@@ -19,7 +19,7 @@ class Water extends Creatures{
         if(newCell2){
             this.wreck();
         }
-        if (newCell && this.life > 10   ) {
+        if (newCell && this.life > 11) {
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
@@ -32,7 +32,7 @@ class Water extends Creatures{
         this.getNewDirections();
         let newCell = random(this.chooseCell(5));
         if (newCell) {
-            this.energy += 20;
+            this.energy += 15;
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
@@ -44,7 +44,6 @@ class Water extends Creatures{
             for (let index = 0; index < krakArr.length; index++) {
                 if (krakArr[index].x == x && krakArr[index].y == y) {
                     krakArr.splice(index, 1)
-                  
                 }
             }
 
