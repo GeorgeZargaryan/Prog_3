@@ -20,6 +20,7 @@ class Water extends Creatures{
             this.wreck();
         }
         if (newCell && this.life > 11) {
+            
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
@@ -32,7 +33,7 @@ class Water extends Creatures{
         this.getNewDirections();
         let newCell = random(this.chooseCell(5));
         if (newCell) {
-            this.energy += 15;
+            this.energy += 10;
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
@@ -47,7 +48,7 @@ class Water extends Creatures{
                 }
             }
 
-            if (this.energy > 60) {
+            if (this.energy >= 60) {
                 this.mul()
             }
  

@@ -74,7 +74,7 @@ class Fire extends Creatures{
     }
   }
   move() {
-    this.energy--;
+    this.energy -= 2;
     let newCell = random(
       this.chooseCell(0)
         .concat(this.chooseCell(1))
