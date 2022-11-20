@@ -16,13 +16,12 @@ module.exports = class Water extends Creatures{
     }
     mul() {
         this.life ++;
-        let newCell = random(this.chooseCell(0));
-        let newCell2 = random(this.chooseCell(5))
-        if(newCell2){
-            this.wreck();
-        }
+        let newCell = [2,5];
+        let newCell2 = [2,4]
+        // if(newCell2){
+        //     this.wreck();
+        // }
         if (newCell && this.life > 11) {
-            
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 4;
@@ -33,7 +32,7 @@ module.exports = class Water extends Creatures{
     }
     wreck(){
         this.getNewDirections();
-        let newCell = random(this.chooseCell(5));
+        let newCell = [4,6];
         if (newCell) {
             this.energy += 10;
             let x = newCell[0];
