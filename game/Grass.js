@@ -1,5 +1,5 @@
-import {Creatures} from './Creatures.js';
-export class Grass extends Creatures{
+const Creatures = require('./Creatures.js');
+module.exports = class Grass extends Creatures{
 
   mul() {
     this.life++;

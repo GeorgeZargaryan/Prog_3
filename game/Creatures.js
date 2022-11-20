@@ -1,5 +1,5 @@
 
-export class Creatures {
+module.exports = class Creatures {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -23,6 +23,7 @@ export class Creatures {
           let x = this.directions[index][0];
           let y = this.directions[index][1];
           if (x >= 0 && y >= 0 && x < matrix[0].length && y < matrix.length) {
+            // matrix used to not go out from matrix
             if (matrix[y][x] == char) {
               arr.push(this.directions[index]);
             }

@@ -1,5 +1,5 @@
-import {Creatures} from './Creatures.js';
-export class GrassEater extends Creatures{
+const Creatures = require('./Creatures.js');
+module.exports = class GrassEater extends Creatures{
   constructor(x, y) {
     super(x, y)
     this.energy = 30;

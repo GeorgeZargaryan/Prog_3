@@ -1,6 +1,6 @@
-import {Creatures} from './Creatures.js';
+const Creatures = require('./Creatures.js');
 
-export class Water extends Creatures{
+module.exports = class Water extends Creatures{
     
     getNewDirections() {
         this.directions = [

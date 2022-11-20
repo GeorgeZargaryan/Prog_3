@@ -1,6 +1,6 @@
-import {Creatures} from './Creatures.js';
+const Creatures = require('./Creatures.js');
 
-export class Predator extends Creatures{
+module.exports = class Predator extends Creatures{
   constructor(x, y) {
     super(x, y);
     this.energy = 30;
@@ -55,7 +55,7 @@ export class Predator extends Creatures{
         }
       }
 
-      if (this.energy > 60) {
+      if (this.energy >= 60) {
         this.mul();
       }
     } else {
@@ -73,7 +73,7 @@ export class Predator extends Creatures{
 
       this.y = y;
       this.x = x;
-      if (this.energy < 0) {
+      if (this.energy <= 0) {
         this.die();
       }
     }
