@@ -1,25 +1,17 @@
+let socket = io();
+const AddGrass = document.querySelector('#addGrass');
 
-let socket = io()
-
-// let matrix = [];
 let side = 10;
-// let grassArr = [];
-// let eaterArr = [];
-// let predatorArr = [];
-// let jurArr = [];
-// let krakArr = [];
 
-function setup() {
+function setup(matrix) {
   frameRate(30);
-  // matrixGen(80, 1500, 100, 30, 15, 20);
-  createCanvas(600 ,600);
+  createCanvas(matrix.length * side ,matrix.length* side);
   background("grey");
-
   noStroke();
 }
 
 function update(matrix) {
-  console.log(matrix)
+  // console.log(matrix);
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
@@ -38,41 +30,26 @@ function update(matrix) {
       rect(x * side, y * side, side, side);
     }
   }
-  // setInterval(update,1000)
-  // for (let index = 0; index < grassArr.length; index++) {
-  //   grassArr[index].mul();
-  // }
-  // for (let index = 0; index < jurArr.length; index++) {
-  //   jurArr[index].mul();
-  // }
-  // for (let index = 0; index < eaterArr.length; index++) {
-  //   eaterArr[index].eat();
-  // }
-  // for (let index = 0; index < predatorArr.length; index++) {
-  //   predatorArr[index].eat();
-  // }
-  // for (let index = 0; index < krakArr.length; index++) {
-  //   krakArr[index].eat();
-  // }
-}
-// window.setup = setup;
-// window.draw = draw;
-/*
-const fs = require("fs");
-
-var obj =
-{
-    "first_name": "Valera",
-    "last_name": "Hovsepyan",
-    "age": 15,
-    "is_tumo_student": false
 }
 
-function main(){
-    fs.writeFileSync("obj.json", JSON.stringify(obj))
-    fs.readFileSync("obj.json").toString();
-    console.log(JSON.stringify(obj));
+function fillRandomGrass(matrix){
+  console.log("filled")
+  grassCount = 28;
+  while(grassCount > 0){
+    let x = Math.floor(Math.random() * matrix.length);
+    let y = Math.floor(Math.random() * matrix.length);
+    if(matrix[y][x] == 0){
+      matrix[y][x] = 1;
+      grassCount--;
+    }
+  }
 }
-main();
-*/
-socket.on("send matrix",update)
+
+AddGrass.addEventListener('click', ()=>{
+  console.log("grass Added")
+  socket.emit('get matrix');
+})
+
+socket.on("send matrix", update);
+
+socket.on('get matrix', fillRandomGrass);

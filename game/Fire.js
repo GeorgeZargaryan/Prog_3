@@ -1,7 +1,7 @@
-const Creatures = require('./Creatures.js');
-module.exports = class Fire extends Creatures{
+const Creatures = require("./Creatures.js");
+module.exports = class Fire extends Creatures {
   constructor(x, y) {
-    super(x ,y);
+    super(x, y);
     this.energy = 10;
   }
   getNewDirections() {
@@ -16,30 +16,32 @@ module.exports = class Fire extends Creatures{
       [this.x + 1, this.y + 1],
     ];
   }
-  mul() {
+  mul(matrix, FireArr) {
     this.life++;
-    let newCell = random(this.chooseCell(0));
+    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
     if (newCell && this.life > 10) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 1;
       let fire = new Fire(x, y);
-      krakArr.push(fire);
+      FireArr.push(fire);
       this.life = 0;
     }
   }
-  die() {
+  die(matrix, FireArr) {
     matrix[this.y][this.x] = 0;
-    for (let index = 0; index < krakArr.length; index++) {
-      if (krakArr[index].x == this.x && krakArr[index].y == this.y) {
-        krakArr.splice(index, 1);
+    for (let index = 0; index < FireArr.length; index++) {
+      if (FireArr[index].x == this.x && FireArr[index].y == this.y) {
+        FireArr.splice(index, 1);
       }
     }
   }
-  eat() {
+  eat(matrix, fireArr, grassArr, eaterArr, predatorArr) {
     this.getNewDirections();
-    let newCell = random(
-      this.chooseCell(1).concat(this.chooseCell(2)).concat(this.chooseCell(3))
+    let newCell = this.getRandomCell(
+      this.chooseCell(1, matrix)
+        .concat(this.chooseCell(2, matrix))
+        .concat(this.chooseCell(3, matrix))
     );
     if (newCell) {
       this.energy += 10;
@@ -67,19 +69,19 @@ module.exports = class Fire extends Creatures{
         }
       }
       if (this.energy >= 60) {
-        this.mul();
+        this.mul(matrix, fireArr);
       }
     } else {
-      this.move();
+      this.move(matrix, fireArr);
     }
   }
-  move() {
+  move(matrix, fireArr) {
     this.energy -= 2;
-    let newCell = random(
-      this.chooseCell(0)
-        .concat(this.chooseCell(1))
-        .concat(this.chooseCell(2))
-        .concat(this.chooseCell(3))
+    let newCell = this.getRandomCell(
+      this.chooseCell(0, matrix)
+        .concat(this.chooseCell(1, matrix))
+        .concat(this.chooseCell(2, matrix))
+        .concat(this.chooseCell(3, matrix))
     );
     if (newCell) {
       let x = newCell[0];
@@ -89,9 +91,10 @@ module.exports = class Fire extends Creatures{
 
       this.y = y;
       this.x = x;
-      if (this.energy < 0) {
-        this.die();
-      }
+    }
+    if (this.energy <= 0) {
+      this.die(matrix, fireArr);
     }
   }
-}
+
+};

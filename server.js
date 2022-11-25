@@ -1,23 +1,12 @@
 var express = require("express");
 var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+var server = require("http").createServer(app);
+var io = require("socket.io")(server);
 app.use(express.static("."));
 
 app.get("/", function (req, res) {
   res.redirect("game/index.html");
 });
-
-// app.listen(3000, function(){
-//    console.log("Example is running on port 3000");
-// });
-
-
-// io.on('connection', function (socket) {
-//    socket.on("socket on", function (data) {
-//        io.sockets.emit("on", data);
-//    });
-// });
 
 const Grass = require("./game/Grass.js");
 const GrassEater = require("./game/GrassEater.js");
@@ -28,10 +17,9 @@ const Fire = require("./game/Fire.js");
 let grassArr = [];
 let eaterArr = [];
 let predatorArr = [];
-let jurArr = [];
-let krakArr = [];
+let waterArr = [];
+let fireArr = [];
 let matrix = [];
-
 
 function matrixGen(
   matrixSize,
@@ -47,31 +35,66 @@ function matrixGen(
       matrix[index][i] = 0;
     }
   }
-  for (let index = 0; index < grassCount; index++) {
+  while (grassCount > 0) {
     let x = Math.floor(Math.random() * matrixSize);
     let y = Math.floor(Math.random() * matrixSize);
-    matrix[y][x] = 1;
+    if (matrix[y][x] == 0) {
+      matrix[y][x] = 1;
+      grassCount--;
+    }
   }
-  for (let index = 0; index < grassEaterCount; index++) {
+  while (grassEaterCount > 0) {
     let x = Math.floor(Math.random() * matrixSize);
     let y = Math.floor(Math.random() * matrixSize);
-    matrix[y][x] = 2;
+    if (matrix[y][x] == 0) {
+      matrix[y][x] = 2;
+      grassEaterCount--;
+    }
   }
-  for (let index = 0; index < predatorCount; index++) {
+  while (predatorCount > 0) {
     let x = Math.floor(Math.random() * matrixSize);
     let y = Math.floor(Math.random() * matrixSize);
-    matrix[y][x] = 3;
+    if (matrix[y][x] == 0) {
+      matrix[y][x] = 3;
+      predatorCount--;
+    }
   }
-  for (let index = 0; index < waterCount; index++) {
+  while (waterCount > 0) {
     let x = Math.floor(Math.random() * matrixSize);
     let y = Math.floor(Math.random() * matrixSize);
-    matrix[y][x] = 4;
+    if (matrix[y][x] == 0) {
+      matrix[y][x] = 4;
+      waterCount--;
+    }
   }
-  for (let index = 0; index < fireCount; index++) {
+  while (fireCount > 0) {
     let x = Math.floor(Math.random() * matrixSize);
     let y = Math.floor(Math.random() * matrixSize);
-    matrix[y][x] = 5;
+    if (matrix[y][x] == 0) {
+      matrix[y][x] = 5;
+      fireCount--;
+    }
   }
+  // for (let index = 0; index < grassEaterCount; index++) {
+  //   let x = Math.floor(Math.random() * matrixSize);
+  //   let y = Math.floor(Math.random() * matrixSize);
+  //   matrix[y][x] = 2;
+  // }
+  // for (let index = 0; index < predatorCount; index++) {
+  //   let x = Math.floor(Math.random() * matrixSize);
+  //   let y = Math.floor(Math.random() * matrixSize);
+  //   matrix[y][x] = 3;
+  // }
+  // for (let index = 0; index < waterCount; index++) {
+  //   let x = Math.floor(Math.random() * matrixSize);
+  //   let y = Math.floor(Math.random() * matrixSize);
+  //   matrix[y][x] = 4;
+  // }
+  // for (let index = 0; index < fireCount; index++) {
+  //   let x = Math.floor(Math.random() * matrixSize);
+  //   let y = Math.floor(Math.random() * matrixSize);
+  //   matrix[y][x] = 5;
+  // }
 }
 
 function createobj() {
@@ -88,53 +111,45 @@ function createobj() {
         predatorArr.push(predator);
       } else if (matrix[y][x] == 4) {
         let water = new Water(x, y);
-        jurArr.push(water);
+        waterArr.push(water);
       } else if (matrix[y][x] == 5) {
         let fire = new Fire(x, y);
-        krakArr.push(fire);
+        fireArr.push(fire);
       }
     }
   }
-  io.sockets.emit('send matrix', matrix);
+  io.sockets.emit("send matrix", matrix);
 }
-function gameMove(){
+function gameMove() {
   for (let index = 0; index < grassArr.length; index++) {
-    grassArr[index].mul(matrix);
+    grassArr[index].mul(matrix, grassArr);
   }
-  for (let index = 0; index < jurArr.length; index++) {
-    jurArr[index].mul();
+  for (let index = 0; index < waterArr.length; index++) {
+    waterArr[index].mul(matrix, waterArr, fireArr);
   }
   for (let index = 0; index < eaterArr.length; index++) {
-    eaterArr[index].eat();
+    eaterArr[index].eat(matrix, eaterArr, grassArr);
   }
   for (let index = 0; index < predatorArr.length; index++) {
-    predatorArr[index].eat();
+    predatorArr[index].eat(matrix, predatorArr, eaterArr, grassArr);
   }
-  for (let index = 0; index < krakArr.length; index++) {
-    krakArr[index].eat();
+  for (let index = 0; index < fireArr.length; index++) {
+    fireArr[index].eat(matrix, fireArr, grassArr, eaterArr, predatorArr);
   }
+
+  io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(gameMove,1000)
-matrixGen(80, 1500, 100, 30, 15, 20);
-
-
-
-// var express = require('express');
-// var app = express();
-// var server = require('http').createServer(app);
-// var io = require('socket.io')(server);
-
-// var messages = [];
-
-// app.use(express.static("."));
-
-// app.get('/', function (req, res) {
-//    res.redirect('index.html');
-// });
+setInterval(gameMove, 500);
+matrixGen(80, 1500, 100, 30, 20, 15);
 
 server.listen(3000);
 
-io.on('connection', function (socket) {
+io.on("connection", function (socket) {
   createobj();
+});
+
+io.on("get matrix", (socket) => {
+  console.log("matrix sent")
+  io.sockets.emit("get matrix", matrix);
 });

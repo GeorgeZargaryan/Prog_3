@@ -1,9 +1,8 @@
-const Creatures = require('./Creatures.js');
-module.exports = class Grass extends Creatures{
-
-  mul() {
+const Creatures = require("./Creatures.js");
+module.exports = class Grass extends Creatures {
+  mul(matrix, grassArr) {
     this.life++;
-    let newCell = [0,2];
+    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
     if (newCell && this.life > 8) {
       let x = newCell[0];
       let y = newCell[1];
@@ -13,4 +12,4 @@ module.exports = class Grass extends Creatures{
       this.life = 0;
     }
   }
-}
+};

@@ -16,8 +16,8 @@ module.exports = class GrassEater extends Creatures{
       [this.x + 1, this.y + 1],
     ];
   }
-  mul() {
-    let newCell = random(this.chooseCell(0));
+  mul(matrix, eaterArr) {
+    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];
@@ -27,7 +27,7 @@ module.exports = class GrassEater extends Creatures{
       this.energy = 0;
     }
   }
-  die() {
+  die(matrix, eaterArr) {
     matrix[this.y][this.x] = 0;
     for (let index = 0; index < eaterArr.length; index++) {
       if (eaterArr[index].x == this.x && eaterArr[index].y == this.y) {
@@ -35,9 +35,9 @@ module.exports = class GrassEater extends Creatures{
       }
     }
   }
-  eat() {
+  eat(matrix, eaterArr, grassArr) {
     this.getNewDirections();
-    let newCell = random(this.chooseCell(1));
+    let newCell = this.getRandomCell(this.chooseCell(1, matrix));
     if (newCell) {
       this.energy += 5;
       let x = newCell[0];
@@ -56,15 +56,15 @@ module.exports = class GrassEater extends Creatures{
       }
 
       if (this.energy > 60) {
-        this.mul();
+        this.mul(matrix, eaterArr);
       }
     } else {
-      this.move();
+      this.move(matrix, eaterArr);
     }
   }
-  move() {
+  move(matrix, eaterArr) {
     this.energy -= 2;
-    let newCell = random(this.chooseCell(0).concat(this.chooseCell(4)));
+    let newCell = this.getRandomCell(this.chooseCell(0, matrix)); // .concat(this.chooseCell(4, matrix))
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];
@@ -73,9 +73,9 @@ module.exports = class GrassEater extends Creatures{
 
       this.y = y;
       this.x = x;
-      if (this.energy < 0) {
-        this.die();
-      }
+    }
+    if (this.energy < 0) {
+      this.die(matrix, eaterArr);
     }
   }
 }
