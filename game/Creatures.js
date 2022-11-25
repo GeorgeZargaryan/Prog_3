@@ -1,8 +1,9 @@
 module.exports = class Creatures {
-  constructor(x, y) {
+  constructor(x, y, gender) {
     this.x = x;
     this.y = y;
     this.life = 0;
+    this.gender = gender;
     this.directions = [
       [this.x - 1, this.y - 1],
       [this.x, this.y - 1],
@@ -14,7 +15,7 @@ module.exports = class Creatures {
       [this.x + 1, this.y + 1],
     ];
   }
-  chooseCell(char, matrix) {
+  chooseCell(char) {
     let arr = [];
 
     for (let index = 0; index < this.directions.length; index++) {

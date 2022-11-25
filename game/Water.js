@@ -14,25 +14,25 @@ module.exports = class Water extends Creatures {
       [this.x + 1, this.y + 1],
     ];
   }
-  mul(matrix, waterArr, fireArr) {
+  mul() {
     this.life++;
-    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
-    let newCell2 = this.getRandomCell(this.chooseCell(5, matrix));
+    let newCell = this.getRandomCell(this.chooseCell(0));
+    let newCell2 = this.getRandomCell(this.chooseCell(5));
     if (newCell2) {
-      this.wreck(matrix, fireArr, waterArr);
+      this.wreck();
     }
     if (newCell && this.life > 10 && waterArr.length <= 300) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 4;
-      let water = new Water(x, y);
+      let water = new Water(x, y, Math.round(Math.random()));
       waterArr.push(water);
       this.life = 0;
     }
   }
-  wreck(matrix, FireArr, waterArr) {
+  wreck() {
     this.getNewDirections();
-    let newCell = this.getRandomCell(this.chooseCell(5, matrix));
+    let newCell = this.getRandomCell(this.chooseCell(5));
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];
@@ -48,9 +48,9 @@ module.exports = class Water extends Creatures {
       this.y = y;
       this.x = x;
       
-      for (let index = 0; index < FireArr.length; index++) {
-        if (FireArr[index].x == x && FireArr[index].y == y) {
-          FireArr.splice(index, 1);
+      for (let index = 0; index < fireArr.length; index++) {
+        if (fireArr[index].x == x && fireArr[index].y == y) {
+          fireArr.splice(index, 1);
         }
       }
     }

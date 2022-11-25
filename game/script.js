@@ -1,17 +1,15 @@
 let socket = io();
-const AddGrass = document.querySelector('#addGrass');
 
 let side = 10;
 
 function setup(matrix) {
   frameRate(30);
-  createCanvas(matrix.length * side ,matrix.length* side);
+  createCanvas(600, 600);
   background("grey");
   noStroke();
 }
 
 function update(matrix) {
-  // console.log(matrix);
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
@@ -32,24 +30,15 @@ function update(matrix) {
   }
 }
 
-function fillRandomGrass(matrix){
-  console.log("filled")
-  grassCount = 28;
-  while(grassCount > 0){
-    let x = Math.floor(Math.random() * matrix.length);
-    let y = Math.floor(Math.random() * matrix.length);
-    if(matrix[y][x] == 0){
-      matrix[y][x] = 1;
-      grassCount--;
-    }
-  }
+function fillRandomGrass() {
+  socket.emit('fill grass');
 }
 
-AddGrass.addEventListener('click', ()=>{
-  console.log("grass Added")
-  socket.emit('get matrix');
-})
+function setWeather(weather){
+  socket.emit('change weather', {Season: weather})
+}
+
+// socket.on('fill grass', fillRandomGrass);
+socket.on("sen matrix", fillRandomGrass);
 
 socket.on("send matrix", update);
-
-socket.on('get matrix', fillRandomGrass);

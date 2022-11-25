@@ -2,7 +2,7 @@ const Creatures = require("./Creatures.js");
 module.exports = class Fire extends Creatures {
   constructor(x, y) {
     super(x, y);
-    this.energy = 10;
+    this.energy = 60;
   }
   getNewDirections() {
     this.directions = [
@@ -16,35 +16,35 @@ module.exports = class Fire extends Creatures {
       [this.x + 1, this.y + 1],
     ];
   }
-  mul(matrix, FireArr) {
+  mul() {
     this.life++;
-    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
-    if (newCell && this.life > 10) {
+    let newCell = this.getRandomCell(this.chooseCell(0));
+    if (newCell && this.life > 12) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 1;
-      let fire = new Fire(x, y);
-      FireArr.push(fire);
+      let fire = new Fire(x, y, Math.round(Math.random()));
+      fireArr.push(fire);
       this.life = 0;
     }
   }
-  die(matrix, FireArr) {
+  die() {
     matrix[this.y][this.x] = 0;
-    for (let index = 0; index < FireArr.length; index++) {
-      if (FireArr[index].x == this.x && FireArr[index].y == this.y) {
-        FireArr.splice(index, 1);
+    for (let index = 0; index < fireArr.length; index++) {
+      if (fireArr[index].x == this.x && fireArr[index].y == this.y) {
+        fireArr.splice(index, 1);
       }
     }
   }
-  eat(matrix, fireArr, grassArr, eaterArr, predatorArr) {
+  eat() {
     this.getNewDirections();
     let newCell = this.getRandomCell(
-      this.chooseCell(1, matrix)
-        .concat(this.chooseCell(2, matrix))
-        .concat(this.chooseCell(3, matrix))
+      this.chooseCell(1)
+        .concat(this.chooseCell(2))
+        .concat(this.chooseCell(3))
     );
     if (newCell) {
-      this.energy += 10;
+      this.energy += 15;
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 5;
@@ -69,19 +69,19 @@ module.exports = class Fire extends Creatures {
         }
       }
       if (this.energy >= 60) {
-        this.mul(matrix, fireArr);
+        this.mul();
       }
     } else {
-      this.move(matrix, fireArr);
+      this.move();
     }
   }
-  move(matrix, fireArr) {
-    this.energy -= 2;
+  move() {
+    this.energy -= 10;
     let newCell = this.getRandomCell(
-      this.chooseCell(0, matrix)
-        .concat(this.chooseCell(1, matrix))
-        .concat(this.chooseCell(2, matrix))
-        .concat(this.chooseCell(3, matrix))
+      this.chooseCell(0)
+        .concat(this.chooseCell(1))
+        .concat(this.chooseCell(2))
+        .concat(this.chooseCell(3))
     );
     if (newCell) {
       let x = newCell[0];
@@ -93,7 +93,7 @@ module.exports = class Fire extends Creatures {
       this.x = x;
     }
     if (this.energy <= 0) {
-      this.die(matrix, fireArr);
+      this.die();
     }
   }
 
