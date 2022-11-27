@@ -17,7 +17,8 @@ module.exports = class GrassEater extends Creatures{
     ];
   }
   mul() {
-    let newCell = this.getRandomCell(this.chooseCell(0, matrix));
+    this.life++;
+    let newCell = this.getRandomCell(this.chooseCell(0));
     if (newCell && this.gender == 1) {
       let x = newCell[0];
       let y = newCell[1];
@@ -37,7 +38,7 @@ module.exports = class GrassEater extends Creatures{
   }
   eat() {
     this.getNewDirections();
-    let newCell = this.getRandomCell(this.chooseCell(1, matrix));
+    let newCell = this.getRandomCell(this.chooseCell(1));
     if (newCell) {
       this.energy += 5;
       let x = newCell[0];
@@ -55,7 +56,7 @@ module.exports = class GrassEater extends Creatures{
         }
       }
 
-      if (this.energy > 60) {
+      if (this.life >= 7) {
         this.mul();
       }
     } else {
@@ -64,7 +65,7 @@ module.exports = class GrassEater extends Creatures{
   }
   move() {
     this.energy -= 2;
-    let newCell = this.getRandomCell(this.chooseCell(0, matrix)); // .concat(this.chooseCell(4, matrix))
+    let newCell = this.getRandomCell(this.chooseCell(0)); // .concat(this.chooseCell(4, matrix))
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];

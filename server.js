@@ -6,6 +6,7 @@ const Fire = require("./game/Fire.js");
 
 var express = require("express");
 var app = express();
+var fs = require("fs");
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 app.use(express.static("."));
@@ -19,10 +20,12 @@ eaterArr = [];
 predatorArr = [];
 waterArr = [];
 fireArr = [];
-
-gameColorMode = ['#9b7653','green', 'yellow', 'red', 'blue','orange'];
-
 matrix = [];
+
+season = "Spring";
+
+gameData = [matrix, season];
+
 
 function matrixGen(
   matrixSize,
@@ -78,6 +81,7 @@ function matrixGen(
       fireCount--;
     }
   }
+  season = 0;
 }
 
 function createobj() {
@@ -101,28 +105,38 @@ function createobj() {
       }
     }
   }
-
-
-  io.sockets.emit("send matrix", matrix);
+  gameData[0] = matrix;
+  io.sockets.emit("send matrix", gameData);
 }
 function gameMove() {
+  //Use mul() as start function for all
   for (let index = 0; index < grassArr.length; index++) {
-    grassArr[index].mul(matrix, grassArr);
+    grassArr[index].mul();
   }
   for (let index = 0; index < waterArr.length; index++) {
-    waterArr[index].mul(matrix, waterArr, fireArr);
+    waterArr[index].mul();
   }
   for (let index = 0; index < eaterArr.length; index++) {
-    eaterArr[index].eat(matrix, eaterArr, grassArr);
+    eaterArr[index].move();
   }
   for (let index = 0; index < predatorArr.length; index++) {
-    predatorArr[index].eat(matrix, predatorArr, eaterArr, grassArr);
+    predatorArr[index].move();
   }
   for (let index = 0; index < fireArr.length; index++) {
-    fireArr[index].eat(matrix, fireArr, grassArr, eaterArr, predatorArr);
+    fireArr[index].eat();
   }
-
-  io.sockets.emit("send matrix", matrix);
+  gameData[0] = matrix;
+  gameData[1] = season;
+  gameData[2] = {
+    grassCount: grassArr.length,
+    eaterCount: eaterArr.length,
+    predatorCount: predatorArr.length,
+    waterCount: waterArr.length,
+    fireCount: fireArr.length,
+    weather: season // default 0 ???
+  };
+  fs.writeFileSync("stats.json", JSON.stringify(gameData[2],null,4));
+  io.sockets.emit("send matrix", gameData);
 }
 
 function fillRandomGrass() {
@@ -137,20 +151,41 @@ function fillRandomGrass() {
       count--;
     }
   }
-  io.sockets.emit("send matrix", matrix);
+  io.sockets.emit("send matrix", gameData);
 }
 
-function changeWeather(){
-  
+function setSpring() {
+  season = "Spring";
+}
+function setSummer() {
+  season = "Summer";
+}
+function setAutumn() {
+  season = "Autumn";
+}
+function setWinter() {
+  season = "Winter";
+}
+function startGame(){
+  grassArr = [];
+  eaterArr = [];
+  predatorArr = [];
+  waterArr = [];
+  fireArr = [];
+  matrixGen(80, 1500, 150, 60, 20, 15);
+  createobj();
 }
 
 setInterval(gameMove, 500);
-matrixGen(80, 1500, 150, 30, 20, 15);
+startGame();
 
 server.listen(3000);
 
 io.on("connection", function (socket) {
-  createobj();
-  socket.on('fill grass', fillRandomGrass)
-  socket.on('change weather', )
+  socket.on("fill grass", fillRandomGrass);
+  socket.on("set spring", setSpring);
+  socket.on("set summer", setSummer);
+  socket.on("set autumn", setAutumn);
+  socket.on("set winter", setWinter);
+  socket.on("restart", startGame);
 });

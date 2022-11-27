@@ -38,8 +38,8 @@ module.exports = class Predator extends Creatures {
   }
   eat() {
     this.getNewDirections();
-    let grassEater = this.getRandomCell(this.chooseCell(2));
     let grass = this.getRandomCell(this.chooseCell(1));
+    let grassEater = this.getRandomCell(this.chooseCell(2));
     if (grassEater) {
       this.energy += 30;
       let x = grassEater[0];
@@ -73,15 +73,11 @@ module.exports = class Predator extends Creatures {
     }
     if (this.energy >= 60) {
       this.mul();
-    } else {
-      this.move();
     }
   }
   move() {
     this.energy -= 2;
-    let newCell = this.getRandomCell(
-      this.chooseCell(0).concat(this.chooseCell(1))
-    );
+    let newCell = this.getRandomCell(this.chooseCell(0));
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];
@@ -93,6 +89,9 @@ module.exports = class Predator extends Creatures {
     }
     if (this.energy <= 0) {
       this.die();
+    }
+    else{
+      this.eat();
     }
   }
 };

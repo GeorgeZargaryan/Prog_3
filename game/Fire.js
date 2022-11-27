@@ -53,7 +53,7 @@ module.exports = class Fire extends Creatures {
       this.y = y;
       this.x = x;
 
-      for (let index = 0; index < eaterArr.length; index++) {
+      for (let index = 0; index < grassArr.length; index++) {
         if (grassArr[index].x == x && grassArr[index].y == y) {
           grassArr.splice(index, 1);
         }
@@ -79,9 +79,6 @@ module.exports = class Fire extends Creatures {
     this.energy -= 10;
     let newCell = this.getRandomCell(
       this.chooseCell(0)
-        .concat(this.chooseCell(1))
-        .concat(this.chooseCell(2))
-        .concat(this.chooseCell(3))
     );
     if (newCell) {
       let x = newCell[0];
