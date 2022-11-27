@@ -2,6 +2,13 @@ let socket = io();
 
 let side = 10;
 
+const dirtColor = document.querySelector('#dirtColor');
+const grassColor = document.querySelector('#grassColor');
+const eaterColor = document.querySelector('#eaterColor');
+const predatorColor = document.querySelector('#predatorColor');
+const waterColor = document.querySelector('#waterColor');
+const fireColor = document.querySelector('#fireColor');
+
 const statsSeason = document.querySelector('#season');
 statsSeason.innerHTML = "<span>Season: Spring</span>";
 const statsGrass = document.querySelector('#grass');
@@ -47,19 +54,19 @@ function fillRandomGrass() {
   socket.emit("fill grass");
 }
 
-function setSpring() {
+function setSpring(data) {
   socket.emit("set spring");
   statsSeason.innerHTML = "<span>Season: Spring</span>";
 }
-function setSummer() {
+function setSummer(data) {
   socket.emit("set summer");
   statsSeason.innerHTML = "<span>Season: Summer</span>";
 }
-function setAutumn() {
+function setAutumn(data) {
   socket.emit("set autumn");
   statsSeason.innerHTML = "<span>Season: Autumn</span>";
 }
-function setWinter() {
+function setWinter(data) {
   socket.emit("set winter");
   statsSeason.innerHTML = "<span>Season: Winter</span>";
 }

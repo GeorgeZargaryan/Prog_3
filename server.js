@@ -157,19 +157,19 @@ function fillRandomGrass() {
 
 function setSpring() {
   season = "Spring";
-  colorPalette = ['#9b7653','green', 'yellow', 'red','blue','orange'];
+  gameColors = ['#9b7653','green', 'yellow', 'red','blue','orange'];
 }
 function setSummer() {
   season = "Summer";
-  colorPalette = ['#FFDEBE', '#79D021', '#AA8500', '#f94449', '#009DCF', '#ef820d'];
+  gameColors = ['#FFDEBE', '#79D021', '#AA8500', '#f94449', '#009DCF', '#ef820d'];
 }
 function setAutumn() {
   season = "Autumn";
-  colorPalette = ['#9b7653', '#75975e', '#e6cc00', '#c2452d', '#0077b6', '#fb8500'];
+  gameColors = ['#9b7653', '#75975e', '#e6cc00', '#c2452d', '#0077b6', '#fb8500'];
 }
 function setWinter() {
   season = "Winter";
-  colorPalette = ['#C3BBC7', '#FFF8F7', '#fffd86', '#73121d', '#A1E7FF', '#dc6004'];
+  gameColors = ['#C3BBC7', '#FFF8F7', '#fffd86', '#73121d', '#A1E7FF', '#dc6004'];
 }
 function startGame(){
   grassArr = [];
