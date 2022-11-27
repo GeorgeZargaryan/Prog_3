@@ -1,7 +1,7 @@
 const Creatures = require('./Creatures.js');
 module.exports = class GrassEater extends Creatures{
-  constructor(x, y) {
-    super(x, y)
+  constructor(x, y, gender) {
+    super(x, y, gender)
     this.energy = 30;
   }
   getNewDirections() {
@@ -19,13 +19,15 @@ module.exports = class GrassEater extends Creatures{
   mul() {
     this.life++;
     let newCell = this.getRandomCell(this.chooseCell(0));
-    if (newCell && this.gender == 1) {
+    if (newCell && this.gender == 1 && this.life > 6) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 2;
       let grassEater = new GrassEater(x, y, Math.round(Math.random()));
       eaterArr.push(grassEater);
-      this.energy = 0;
+      this.life = 0;
+    }else{
+      this.eat();
     }
   }
   die() {
@@ -54,10 +56,6 @@ module.exports = class GrassEater extends Creatures{
         if (grassArr[index].x == x && grassArr[index].y == y) {
           grassArr.splice(index, 1);
         }
-      }
-
-      if (this.life >= 7) {
-        this.mul();
       }
     } else {
       this.move();

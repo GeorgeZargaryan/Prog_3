@@ -27,6 +27,9 @@ module.exports = class Fire extends Creatures {
       fireArr.push(fire);
       this.life = 0;
     }
+    else{
+      this.eat();
+    }
   }
   die() {
     matrix[this.y][this.x] = 0;
@@ -68,9 +71,6 @@ module.exports = class Fire extends Creatures {
           predatorArr.splice(index, 1);
         }
       }
-      if (this.energy >= 60) {
-        this.mul();
-      }
     } else {
       this.move();
     }
@@ -89,7 +89,7 @@ module.exports = class Fire extends Creatures {
       this.y = y;
       this.x = x;
     }
-    if (this.energy <= 0) {
+    if (this.energy < 0) {
       this.die();
     }
   }

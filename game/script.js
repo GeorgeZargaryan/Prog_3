@@ -10,9 +10,9 @@ const statsPredator = document.querySelector('#predator');
 const statsWater = document.querySelector('#water');
 const statsFire = document.querySelector('#fire');
 
-function setup(matrix) {
+function setup() {
   frameRate(30);
-  createCanvas(600, 600);
+  createCanvas(80 * side, 80 * side);
   background("grey");
   noStroke();
 }
@@ -20,71 +20,19 @@ function setup(matrix) {
 function update(data) {
   for (let y = 0; y < data[0].length; y++) {
     for (let x = 0; x < data[0][y].length; x++) {
-      switch (data[1]) {
-        case "Summer":
           if (data[0][y][x] == 1) {
-            fill("#79D021");
+            fill(data[3][1]);
           } else if (data[0][y][x] == 2) {
-            fill("#AA8500");
+            fill(data[3][2]);
           } else if (data[0][y][x] == 3) {
-            fill("#f94449");
+            fill(data[3][3]);
           } else if (data[0][y][x] == 4) {
-            fill("#009DCF");
+            fill(data[3][4]);
           } else if (data[0][y][x] == 5) {
-            fill("#ef820d");
+            fill(data[3][5]);
           } else {
-            fill("#FFDEBE");
+            fill(data[3][0]);
           }
-          break;
-        case "Autumn":
-          if (data[0][y][x] == 1) {
-            fill("green");
-          } else if (data[0][y][x] == 2) {
-            fill("yellow");
-          } else if (data[0][y][x] == 3) {
-            fill("red");
-          } else if (data[0][y][x] == 4) {
-            fill("blue");
-          } else if (data[0][y][x] == 5) {
-            fill("orange");
-          } else {
-            fill("#9b7653");
-          }
-          break;
-        case "Winter":
-          
-          if (data[0][y][x] == 1) {
-            fill("green");
-          } else if (data[0][y][x] == 2) {
-            fill("yellow");
-          } else if (data[0][y][x] == 3) {
-            fill("red");
-          } else if (data[0][y][x] == 4) {
-            fill("blue");
-          } else if (data[0][y][x] == 5) {
-            fill("orange");
-          } else {
-            fill("#9b7653");
-          }
-          break;
-
-        default:
-          if (data[0][y][x] == 1) {
-            fill("green");
-          } else if (data[0][y][x] == 2) {
-            fill("yellow");
-          } else if (data[0][y][x] == 3) {
-            fill("red");
-          } else if (data[0][y][x] == 4) {
-            fill("blue");
-          } else if (data[0][y][x] == 5) {
-            fill("orange");
-          } else {
-            fill("#9b7653");
-          }
-          break;
-      }
-
       rect(x * side, y * side, side, side);
     }
   }

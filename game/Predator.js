@@ -1,8 +1,8 @@
 const Creatures = require("./Creatures.js");
 
 module.exports = class Predator extends Creatures {
-  constructor(x, y) {
-    super(x, y);
+  constructor(x, y, gender) {
+    super(x, y, gender);
     this.energy = 30;
   }
   getNewDirections() {
@@ -18,15 +18,20 @@ module.exports = class Predator extends Creatures {
     ];
   }
   mul() {
+    this.life ++;
     let newCell = this.getRandomCell(this.chooseCell(0, matrix));
-    if (newCell && this.gender == 1) {
+    if (newCell && this.gender == 1 && this.life > 7) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 3;
       let predator = new Predator(x, y, Math.round(Math.random()));
       predatorArr.push(predator);
-      this.energy -= 60;
+      this.life = 0;
     }
+    else{
+      this.eat();
+    }
+
   }
   die() {
     matrix[this.y][this.x] = 0;
@@ -71,12 +76,12 @@ module.exports = class Predator extends Creatures {
         }
       }
     }
-    if (this.energy >= 60) {
-      this.mul();
+    else{
+      this.move();
     }
   }
   move() {
-    this.energy -= 2;
+    this.energy -= 10;
     let newCell = this.getRandomCell(this.chooseCell(0));
     if (newCell) {
       let x = newCell[0];
@@ -89,9 +94,6 @@ module.exports = class Predator extends Creatures {
     }
     if (this.energy <= 0) {
       this.die();
-    }
-    else{
-      this.eat();
     }
   }
 };

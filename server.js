@@ -21,6 +21,7 @@ predatorArr = [];
 waterArr = [];
 fireArr = [];
 matrix = [];
+gameColors = ['#9b7653','green', 'yellow', 'red','blue','orange'];
 
 season = "Spring";
 
@@ -109,7 +110,6 @@ function createobj() {
   io.sockets.emit("send matrix", gameData);
 }
 function gameMove() {
-  //Use mul() as start function for all
   for (let index = 0; index < grassArr.length; index++) {
     grassArr[index].mul();
   }
@@ -117,13 +117,13 @@ function gameMove() {
     waterArr[index].mul();
   }
   for (let index = 0; index < eaterArr.length; index++) {
-    eaterArr[index].move();
+    eaterArr[index].mul();
   }
   for (let index = 0; index < predatorArr.length; index++) {
-    predatorArr[index].move();
+    predatorArr[index].mul();
   }
   for (let index = 0; index < fireArr.length; index++) {
-    fireArr[index].eat();
+    fireArr[index].mul();
   }
   gameData[0] = matrix;
   gameData[1] = season;
@@ -135,6 +135,7 @@ function gameMove() {
     fireCount: fireArr.length,
     weather: season // default 0 ???
   };
+  gameData[3] = gameColors;
   fs.writeFileSync("stats.json", JSON.stringify(gameData[2],null,4));
   io.sockets.emit("send matrix", gameData);
 }
@@ -156,15 +157,19 @@ function fillRandomGrass() {
 
 function setSpring() {
   season = "Spring";
+  colorPalette = ['#9b7653','green', 'yellow', 'red','blue','orange'];
 }
 function setSummer() {
   season = "Summer";
+  colorPalette = ['#FFDEBE', '#79D021', '#AA8500', '#f94449', '#009DCF', '#ef820d'];
 }
 function setAutumn() {
   season = "Autumn";
+  colorPalette = ['#9b7653', '#75975e', '#e6cc00', '#c2452d', '#0077b6', '#fb8500'];
 }
 function setWinter() {
   season = "Winter";
+  colorPalette = ['#C3BBC7', '#FFF8F7', '#fffd86', '#73121d', '#A1E7FF', '#dc6004'];
 }
 function startGame(){
   grassArr = [];
@@ -172,7 +177,7 @@ function startGame(){
   predatorArr = [];
   waterArr = [];
   fireArr = [];
-  matrixGen(80, 1500, 150, 60, 20, 15);
+  matrixGen(80, 1500, 100, 60, 20, 15);
   createobj();
 }
 
