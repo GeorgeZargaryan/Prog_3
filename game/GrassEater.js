@@ -1,7 +1,7 @@
-const Creatures = require('./Creatures.js');
-module.exports = class GrassEater extends Creatures{
+const Creatures = require("./Creatures.js");
+module.exports = class GrassEater extends Creatures {
   constructor(x, y, gender) {
-    super(x, y, gender)
+    super(x, y, gender);
     this.energy = 30;
   }
   getNewDirections() {
@@ -19,14 +19,14 @@ module.exports = class GrassEater extends Creatures{
   mul() {
     this.life++;
     let newCell = this.getRandomCell(this.chooseCell(0));
-    if (newCell && this.gender == 1 && this.life > 6) {
+    if (newCell && this.gender == 1 && this.life > 8) {
       let x = newCell[0];
       let y = newCell[1];
       matrix[y][x] = 2;
       let grassEater = new GrassEater(x, y, Math.round(Math.random()));
       eaterArr.push(grassEater);
       this.life = 0;
-    }else{
+    } else {
       this.eat();
     }
   }
@@ -63,7 +63,7 @@ module.exports = class GrassEater extends Creatures{
   }
   move() {
     this.energy -= 2;
-    let newCell = this.getRandomCell(this.chooseCell(0)); // .concat(this.chooseCell(4, matrix))
+    let newCell = this.getRandomCell(this.chooseCell(0));
     if (newCell) {
       let x = newCell[0];
       let y = newCell[1];
@@ -77,4 +77,4 @@ module.exports = class GrassEater extends Creatures{
       this.die();
     }
   }
-}
+};

@@ -1,5 +1,4 @@
 const Creatures = require("./Creatures.js");
-const Fire = require("./Fire.js");
 
 module.exports = class Water extends Creatures {
   getNewDirections() {

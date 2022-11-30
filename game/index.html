@@ -1,25 +1,18 @@
 <html>
-
     <head>
         <meta charset="utf8">
         <title>Game</title>
-        <style>
-            div{
-                display:inline-block;
-            }
-            
-            #legend {position: absolute;top: 0;right: 0;width: 800px;} .legend-color {width: 30px;height: 30px;} td {border: 1px solid black; font-size: 14px; padding-left: 5px;}
-            </style>
+        <link rel="stylesheet" href="style/style.css">
 </head>
 
 
 <body> 
-    <a href="#" onclick="fillRandomGrass()">Add Random Grass</a>
-    <a href="#" onclick="restart()">Restart</a>
-    <a href="#" onclick="setSpring()">Spring</a>
-    <a href="#" onclick="setSummer()">Summer</a>
-    <a href="#" onclick="setAutumn()">Autumn</a>
-    <a href="#" onclick="setWinter()">Winter</a>
+    <a href="#" onclick="fillRandomGrass()" class="EventButton" id="addGrass">Add Random Grass</a>
+    <a href="#" onclick="restart()" class="EventButton" id="restart">Restart</a>
+    <a href="#" onclick="setSpring()" class="EventButton" id="spring">Spring</a>
+    <a href="#" onclick="setSummer()" class="EventButton" id="summer">Summer</a>
+    <a href="#" onclick="setAutumn()" class="EventButton" id="autumn">Autumn</a>
+    <a href="#" onclick="setWinter()" class="EventButton" id="winter">Winter</a>
     <ul type = "none">
         <li id="season"></li>
         <li id="grass"></li>
@@ -27,6 +20,7 @@
         <li id="predator"></li>
         <li id="water"></li>
         <li id="fire"></li>
+        <li id="stone"></li>
     </ul>
      <br>
     <table id="legend">
@@ -68,10 +62,10 @@
 
         <tr>
             <td class="legend-color" id="predatorColor"></td>
-            <td>Գիշատիչ</td>
+            <td>Predator</td>
             <td>Մոտակա 8 վանդակներում, էներգիան քչանում է 10֊ով</td>
             <td>Խոտակերներին մոտակա 8 վանդակներում, շարժվելիս էներգիան ավելանում է</td>
-            <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 60֊ից ավել է</td>
+            <td>Բազմանում է մոտակա տարածքներում, երբ կյանքերը 7֊ից ավել են</td>
             <td>Սատկում է, երբ էներգիան փոքր է 0֊ից</td>
         </tr>
 
@@ -92,28 +86,20 @@
             <td>Բազմանում է մոտակա տարածքներում, երբ էներգիան 60֊ից ավել է</td>
             <td>Սատկում է Ջրից</td>
         </tr>
+
+        <tr>
+            <td class="legend-color" id="stoneColor"></td>
+            <td>Քար</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>եթե մոտակա  վանդակներում կան խոտակեր, predator կամ ջուր կորցնում է 1 էներգիա</td>
+        </tr>
     </table>
     
     <script src="/socket.io/socket.io.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script> 
-    
-    <script src="script.js" ></script>
+    <script src="script.js"></script>
 </body>
 
 </html> 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-   <title>Document</title>
-   <script src="/socket.io/socket.io.js"></script>
-   <script src="script.js"></script>
-   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-   <div id="chat">
-       <input type="text" placeholder="Enter messages" id="message">
-       <br>
-       <button id="submit">Submit</button>
-   </div>
-</body>
-</html> -->

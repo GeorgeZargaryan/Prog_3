@@ -1,0 +1,147 @@
+div {
+  display: inline-block;
+}
+
+#legend {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 800px;
+}
+
+.legend-color {
+  width: 30px;
+  height: 30px;
+}   
+
+td {
+  border: 1px solid black;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.EventButton{
+    padding: 5px 10px;
+    border: 1px solid;
+    border-radius: .375em;
+    text-decoration: none;
+    color: white;
+}
+#addGrass{
+    background: green;
+}
+#restart{
+    background: #0077b6;
+}
+#spring{
+    background: #79d021;
+}
+#summer{
+    background: #dc6004;
+}
+#autumn{
+    background: #aa8500;
+}
+#winter{
+    background: #a1e7ff;
+}
+
+#dirtColor {
+  background-color: #9b7653;
+}
+#springDirt {
+  background-color: #9b7653;
+}
+#summerDirt {
+  background-color: #ffdebe;
+}
+#autumnDirt {
+  background-color: #9b7653;
+}
+#winterDirt {
+  background-color: #c3bbc7;
+}
+
+#grassColor {
+  background-color: green;
+}
+#springGrass {
+  background-color: green;
+}
+#summerGrass {
+  background-color: #79d021;
+}
+#autumnGrass {
+  background-color: #75975e;
+}
+#winterGrass {
+  background-color: #fff8f7;
+}
+
+#eaterColor {
+  background-color: yellow;
+}
+#springEater {
+  background-color: yellow;
+}
+#summerEater {
+  background-color: #aa8500;
+}
+#autumnEater {
+  background-color: #e6cc00;
+}
+#winterEater {
+  background-color: #fffd86;
+}
+
+#predatorColor {
+  background-color: red;
+}
+#springPredator {
+  background-color: red;
+}
+#summerPredator {
+  background-color: #f94449;
+}
+#autumnPredator {
+  background-color: #c2452d;
+}
+#winterPredator {
+  background-color: #73121d;
+}
+
+#waterColor {
+  background-color: blue;
+}
+#springWater {
+  background-color: blue;
+}
+#summerWater {
+  background-color: #009dcf;
+}
+#autumnWater {
+  background-color: #0077b6;
+}
+#winterWater {
+  background-color: #a1e7ff;
+}
+
+#fireColor {
+  background-color: orange;
+}
+#springFire {
+  background-color: orange;
+}
+#summerFire {
+  background-color: #ef820d;
+}
+#autumnFire {
+  background-color: #fb8500;
+}
+#winterFire {
+  background-color: #dc6004;
+}
+
+#stoneColor{
+  background-color: #4d4e4f;
+}
